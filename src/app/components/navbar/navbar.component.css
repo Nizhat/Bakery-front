@@ -1,0 +1,7 @@
+nav.navbar.bg-dark {
+    background-color: #d43b3b!important;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.collapse.navbar-collapse.nav-top-right {
+    justify-content: flex-end;
+}

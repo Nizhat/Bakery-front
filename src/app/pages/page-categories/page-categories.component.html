@@ -1,0 +1,10 @@
+<div class="wrapper">
+  <div class="item" *ngFor="let item of categories">
+    <a [routerLink]="[ '/products', item.def ]">
+      <img [src]="item.image" class="img-fluid" [alt]="item.name">
+      <div class="hover-state"></div>
+    </a>
+    <span class="label">{{ item.name }}</span>
+  </div>
+</div>
+

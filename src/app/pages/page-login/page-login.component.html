@@ -1,0 +1,29 @@
+<div class="wrapper">
+  <div class="col-md-4 col-sm-12">
+    <div class="block block-customer-login mb-5">
+      <div class="block-title">
+        <h1>Авторизация</h1>
+      </div>
+      <div class="block-content" aria-labelledby="block-customer-login-heading">
+        <div class="login_form">
+          <div class="form-group mb-4">
+            <input class="form-control" type="text" tabindex="1" placeholder="Введите email"
+              [(ngModel)]="login"/>
+          </div>
+          <div class="form-group mb-4">
+            <input class="form-control" type="password" tabindex="2" placeholder="Введите пароль"
+              [(ngModel)]="password" (keypress)="runScript($event)"/>
+          </div>
+          <div class="error text-danger">
+            <ng-container *ngIf="errorMessage">
+              {{errorMessage}}
+            </ng-container>
+          </div>
+          <div class="btn btn-outline-dark" tabindex="3" (keypress)="runScript($event)" (click)="logIn()" [ngStyle]="{'pointer-events': loading ? 'none':'all', 'cursor': loading ? 'none':'pointer'}">
+            <ng-container> Войти </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

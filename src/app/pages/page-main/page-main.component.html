@@ -1,0 +1,42 @@
+<app-slider></app-slider>
+<div class="col-md-12">  
+  <ngb-alert *ngIf="alertText" [type]="alertText.alert" (close)="alertText = null">{{ alertText.message }}</ngb-alert>
+  <div class="row">
+    <div class="col-md-6 advertisement">
+      <div class="caption-text">
+        <span>Скидка 10%</span>
+        <span>На все типы сладостей</span>
+      </div>
+      <img class="img-fluid" src="../../../assets/images/image14.jpg">
+    </div>
+    <div class="col-md-6 advertisement">
+      <div class="caption-text">
+        <span>Новинка</span>
+        <span>Торт с начинкой</span>
+      </div>
+      <img class="img-fluid" src="../../../assets/images/image11.jpg">
+    </div>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="row products mt-3 mb-3">
+    <div class="col-lg-12 mt-3">
+      <h2>Наши продукции</h2>
+    </div>   
+    <div class="col-lg-4 col-md-3 col-sm-6" *ngFor="let item of products">
+      <div class="card">
+        <a [routerLink]="[ '/product', item.ID ]">
+          <img class="card-img-top" [src]="getImage(item.ImageSrc)" alt="Card image cap">
+        </a>   
+        <div class="card-body">
+          <h5 class="card-title">{{item.Title}}</h5>
+          <p class="card-text">{{item.Description | slice:0:150}}...</p>
+        </div>
+        <div class="card-footer">
+          <span class="text-muted">Цена: {{item.Price}} тг.</span>
+          <button class="btn btn-outline-dark ml-5" (click)="addToBasket(item)">В корзину</button>
+        </div>     
+      </div>
+    </div>
+  </div>
+</div>

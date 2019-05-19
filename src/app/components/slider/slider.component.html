@@ -1,0 +1,9 @@
+<ngb-carousel *ngIf="slides" [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">
+  <ng-template ngbSlide *ngFor="let item of slides">
+    <img [src]="item.src" class="img-fluid" alt="Random slide">
+    <div class="carousel-caption">
+      <h3>{{item.captionTitle}}</h3>
+      <p>{{item.captionText}}</p>
+    </div>
+  </ng-template>
+</ngb-carousel>

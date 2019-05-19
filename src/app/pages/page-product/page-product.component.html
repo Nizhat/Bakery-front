@@ -1,0 +1,15 @@
+<div class="col-md-12">
+  <ngb-alert *ngIf="alertText" [type]="alertText.alert" (close)="alertText = null">{{ alertText.message }}</ngb-alert>
+  <div class="row products">
+    <div class="col-md-6">
+      <img [src]="getImage(productDetail.ImageSrc)" class="img-fluid" alt="Responsive image">
+    </div>
+    <div class="col-md-4">
+      <h1>{{productDetail.Title}}</h1>
+      <p><strong>Категория:</strong> {{productDetail.Category}}</p>
+      <h2>{{productDetail.Price}} <small>тенге</small></h2>      
+      <p>{{productDetail.Description}}</p>
+      <button class="btn btn-outline-dark mt-3" (click)="addToBasket(productDetail)">В корзину</button>
+    </div>
+  </div>
+</div>

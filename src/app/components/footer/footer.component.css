@@ -1,0 +1,7 @@
+.footer-panel {
+    background: #090909;
+    position: relative;
+    z-index: 1;
+    padding: 20px 0;
+    color: white;
+}

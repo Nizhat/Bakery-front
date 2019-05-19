@@ -1,0 +1,12 @@
+.wrapper {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.block-title {
+    margin-bottom: 2rem;
+}
+.error {
+    margin-bottom: 1rem;
+}

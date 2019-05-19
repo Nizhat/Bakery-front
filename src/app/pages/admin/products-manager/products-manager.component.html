@@ -1,0 +1,70 @@
+<div class="col-md-12">
+  <ngb-alert *ngIf="alertText" [type]="alertText.alert" (close)="alertText = null">{{ alertText.message }}</ngb-alert>
+  <button class="btn btn-outline-dark ml-2" (click)="openModal(content)">Добавить продукцию</button>
+  <div class="row products">
+    <div class="col-lg-4 col-md-3 col-sm-6" *ngFor="let item of products | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+      <div class="card">
+        <a [routerLink]="[ '/product', item.ID ]">
+          <img class="card-img-top" [src]="getImage(item.ImageSrc)" alt="Card image cap">
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">{{item.Title}}</h5>
+          <p class="card-text">{{item.Description | slice:0:150}}...</p>
+        </div>
+        <div class="card-footer">
+          <span class="text-muted">Цена: {{item.Price}} тг.</span>
+          <button class="btn btn-outline-dark ml-5" (click)="openModal(content, item)">Редактировать</button>
+          <button class="btn btn-outline-dark ml-5" (click)="deleteProduct(item)">Удалить</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 mt-3">
+      <ngb-pagination
+        [(page)]="page"
+        [pageSize]="pageSize"
+        [collectionSize]="products.length"></ngb-pagination>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Добавление или изменение продукции</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="login_form">        
+      <div class="form-group">
+        <input class="form-control" type="text" tabindex="1" placeholder="Наименование"
+          [(ngModel)]="editableProduct.Title"/>
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" tabindex="2" placeholder="Категория"
+          [(ngModel)]="editableProduct.Category"/>
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" type="text" tabindex="3" placeholder="Описание"
+          [(ngModel)]="editableProduct.Description"></textarea>
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="file" accept="image/jpeg, image/png" tabindex="4" placeholder="Картинка"
+          (change)="uploadMedia($event)"/>
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="number" tabindex="5" placeholder="Введите стоимость"
+          [(ngModel)]="editableProduct.Price"/>
+      </div>
+      <div class="error text-danger">
+        <!-- <ng-container *ngIf="errorMessage">
+          {{errorMessage}}
+        </ng-container> -->
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('cancel click'); clearProduct()">Отменить</button>
+    <button type="button" ngbAutofocus class="btn btn-success" (click)="addProduct()">Подтвердить</button>
+  </div>
+</ng-template>

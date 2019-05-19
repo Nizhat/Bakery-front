@@ -1,0 +1,121 @@
+<div class="wrapper">
+  <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Продукция</th>
+      <th scope="col">Цена</th>
+      <th scope="col">Количество</th>
+      <th scope="col">Общая цена</th>
+      <th scope="col">Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of basketItems; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{item.Title}}</td>
+        <td>{{item.Price}} тенге</td>
+        <td><input class="" type="number" [(ngModel)]="item.Count" min="1" (change)="changedProductCount(item)"></td>
+        <td>{{item.TotalPrice}} тенге</td>
+        <td>
+          <button class="btn btn-dark" (click)="deleteFromBasket(item)">Удалить</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="col-md-12">
+    <div *ngIf="totalPrice">
+      <h2>Чек</h2>
+      <div class="ship-price">
+        <span>Общая цена: </span>
+        <span>{{totalPrice}} тенге</span>
+      </div>
+      <!-- <div class="ship-price">
+        <span>Доставка</span>
+        <span>
+          <input type="checkbox" class="form-check">
+        </span>
+      </div> -->
+      <button class="btn btn-outline-dark mt-2" (click)="openModal(content)">Оформить заявку</button>
+    </div>
+    <div class="row justify-content-center" *ngIf="orderInfo">
+      <div class="col-md-6">
+        <h2 class="text-success text-center">СПАСИБО ЗА ПОКУПКУ!</h2>
+        <p><strong>Ф.И.О:</strong> {{order.UserFirstName + " " + order.UserLastName}}</p>
+        <p><strong>Email:</strong> {{order.UserEmail}}</p>
+        <p><strong>Телефон:</strong> {{order.UserPhone}}</p>
+        <p><strong>Адрес:</strong> {{order.Address}}</p>
+        <p><strong>Список товаров: </strong></p>
+        <div>
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Наименование</th>
+                <th scope="col">Количество</th>
+                <th scope="col">Общая цена</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of basketProducts; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{item.Title}}</td>
+                <td>{{item.Count}}</td>
+                <td>{{item.TotalPrice}} тенге</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p><strong>К оплате:</strong> {{order.TotalPrice}} тенге</p>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">Оформление заявки</h4>
+      <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p><strong>Пожалуйста заполните данные для подтверждения заказа.</strong></p>
+      <p>Просим вас проверить на наличие каких-либо продуктов и удостовериться в оформлении заказа.
+      <span class="text-danger">Отмена заявки не предусмотрено!</span>
+      </p>
+      <div class="login_form">        
+        <div class="form-group">
+          <input class="form-control" type="text" tabindex="1" placeholder="Имя"
+            [(ngModel)]="order.UserFirstName"/>
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" tabindex="2" placeholder="Фамилия"
+            [(ngModel)]="order.UserLastName"/>
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" tabindex="3" placeholder="Адрес доставки"
+            [(ngModel)]="order.Address"/>
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="email" tabindex="4" placeholder="Email"
+            [(ngModel)]="order.UserEmail"/>
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="tel" tabindex="5" placeholder="Введите телефон"
+            [(ngModel)]="order.UserPhone"/>
+        </div>
+        <div class="error text-danger">
+          <ng-container *ngIf="errorMessage">
+            {{errorMessage}}
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('cancel click')">Отменить</button>
+      <button type="button" ngbAutofocus class="btn btn-success" (click)="confirmOrder()">Подтвердить</button>
+    </div>
+  </ng-template>
+</div>

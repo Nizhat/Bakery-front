@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+.alert {
+    position: fixed!important;
+    width: 30%;
+    z-index: 1025;
+    top: 0;
+    right: 0;
+    min-height: 125px;
+}
